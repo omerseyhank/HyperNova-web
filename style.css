@@ -1,0 +1,104 @@
+body {
+  margin: 0;
+  background: #0A0F1F;
+  font-family: Arial, sans-serif;
+  color: white;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 25px;
+  background: #00182E;
+  border-bottom: 2px solid #00B4FF;
+}
+
+.navbar ul {
+  display: flex;
+  list-style: none;
+}
+
+.navbar ul li {
+  margin-left: 20px;
+}
+
+.navbar a {
+  color: #13F2FF;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.logo {
+  color: #00B4FF;
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.hero {
+  text-align: center;
+  padding: 120px 20px;
+  background: linear-gradient(#00182E, #002B4D);
+}
+
+.button {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 15px 30px;
+  background: #00B4FF;
+  color: #0A0F1F;
+  font-weight: bold;
+  border-radius: 8px;
+  text-decoration: none;
+  box-shadow: 0 0 10px #00B4FF;
+}
+
+.page-title {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 32px;
+  color: #13F2FF;
+}
+
+.comic-grid, .char-grid, .shop-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 30px;
+}
+
+.comic-card, .char-card, .shop-item {
+  background: #00233D;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 0 10px #00B4FF;
+}
+
+.comic-reader img {
+  width: 90%;
+  margin: auto;
+  display: block;
+  border-radius: 10px;
+  box-shadow: 0 0 15px #00B4FF;
+}
+
+.reader-controls {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.reader-controls button {
+  padding: 10px 20px;
+  margin: 10px;
+  background: #00B4FF;
+  border: none;
+  color: #0A0F1F;
+  font-weight: bold;
+  border-radius: 8px;
+}
+.ai-box {
+  width: 70%;
+  margin: auto;
+  margin-top: 30px;
+  padding: 20px;
+  background
