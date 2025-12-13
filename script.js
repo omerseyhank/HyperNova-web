@@ -1,57 +1,39 @@
-// 🔵 AzureGPT API URL (your Worker URL)
-const API_URL = "https://azure-gptworker.omerkuzeyseyhan5.workers.dev.omerkuzeyseyhan5.workers.dev";
+<script>
+const WORKER_URL = "https://azure-gptworker.omerkuzeyseyhan5.workers.dev";
 
-// =========================
-// MESSENGER SYSTEM
-// =========================
+async function send(){
+  const input = document.getElementById("msg");
+  const log = document.getElementById("log");
+  const text = input.value.trim();
+  if (!text) return;
 
-async function sendMessage() {
-  const input = document.getElementById("messageInput");
-  const message = input.value.trim();
-  if (!message) return;
-
-  const chatBox = document.getElementById("chatBox");
-
-  // Show user message
-  chatBox.innerHTML += `<p><b>You:</b> ${message}</p>`;
+  log.innerHTML += `<div class="msg user">${text}</div>`;
   input.value = "";
+  log.scrollTop = log.scrollHeight;
 
-  // Send to AzureGPT Worker
   try {
-    const response = await fetch(`${API_URL}?q=` + encodeURIComponent(message));
-    const text = await response.text();
+    const res = await fetch(WORKER_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: text })
+    });
 
-    // Show AI reply
-    chatBox.innerHTML += `<p><b>AzureGPT:</b> ${text}</p>`;
-  } catch (e) {
-    chatBox.innerHTML += `<p><b>AzureGPT:</b> ERROR — cannot connect.</p>`;
+    const raw = await res.text();
+    console.log("RAW RESPONSE:", raw);
+
+    let data;
+    try {
+      data = JSON.parse(raw);
+    } catch {
+      log.innerHTML += `<div class="msg ai">❌ Worker did not return JSON</div>`;
+      return;
+    }
+
+    log.innerHTML += `<div class="msg ai">${data.reply || "❌ No reply field"}</div>`;
+    log.scrollTop = log.scrollHeight;
+
+  } catch (err) {
+    log.innerHTML += `<div class="msg ai">⚠️ Connection error</div>`;
   }
 }
-
-
-// =========================
-// COMIC READER SYSTEM
-// =========================
-
-let currentPage = 1;
-const maxPage = 5;
-
-function nextPage() {
-  if (currentPage < maxPage) currentPage++;
-  document.getElementById("comicPage").src = `comics/amongus/page${currentPage}.jpg`;
-}
-
-function prevPage() {
-  if (currentPage > 1) currentPage--;
-  document.getElementById("comicPage").src = `comics/amongus/page${currentPage}.jpg`;
-}
-
-// =========================
-// FREE COMIC DEAL RANDOM EVENT
-// =========================
-
-setInterval(() => {
-  if (Math.random() < 0.015) {
-    alert("Free Comic Deal: Would you like to give a random user a free comic?");
-  }
-}, 4000);
+</script>
