@@ -1,105 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8">
 <title>HyperNova</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-:root{
-  --neon:#1fbfff;
-  --bg:#030814;
-  --panel:#071a33;
-}
-
-*{box-sizing:border-box}
 body{
   margin:0;
-  font-family: "Segoe UI", Arial, sans-serif;
-  background: radial-gradient(circle at top, #0b1d3a, var(--bg));
+  font-family:Arial, sans-serif;
+  background:#030814;
   color:white;
-  overflow-x:hidden;
 }
-
-/* NAV */
-nav{
-  position:sticky;
-  top:0;
-  z-index:999;
-  background:linear-gradient(90deg,#061b38,#0b2f5f);
+.hidden{display:none}
+.center{
+  min-height:100vh;
   display:flex;
+  justify-content:center;
   align-items:center;
-  padding:14px 30px;
-  border-bottom:2px solid var(--neon);
-}
-.logo{
-  font-size:22px;
-  font-weight:800;
-  color:var(--neon);
-}
-.nav-links{
-  display:flex;
-  gap:22px;
-  margin-left:auto;
-}
-.nav-links a{
-  color:white;
-  text-decoration:none;
-  font-weight:600;
-  position:relative;
-}
-.nav-links a::after{
-  content:"";
-  position:absolute;
-  left:0;
-  bottom:-4px;
-  width:0%;
-  height:2px;
-  background:var(--neon);
-  transition:.3s;
-}
-.nav-links a:hover::after{width:100%}
-
-.whoosh{
-  position:absolute;
-  inset:0;
-  background:linear-gradient(120deg,transparent,rgba(31,191,255,.2),transparent);
-  animation:whoosh 4s linear infinite;
-  pointer-events:none;
-}
-@keyframes whoosh{
-  from{transform:translateX(-100%)}
-  to{transform:translateX(100%)}
-}
-
-/* SECTIONS */
-section{padding:60px 10%}
-h1{color:var(--neon)}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:20px;
 }
 .card{
-  background:var(--panel);
-  border:1px solid rgba(31,191,255,.25);
+  background:#071a33;
+  padding:30px;
   border-radius:16px;
-  padding:20px;
-  transition:.3s;
+  width:300px;
+  box-shadow:0 0 25px rgba(31,191,255,0.3);
 }
-.card:hover{
-  transform:translateY(-6px);
-  box-shadow:0 0 25px rgba(31,191,255,.35);
+input,button{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  border-radius:10px;
+  border:none;
 }
+button{
+  background:#1fbfff;
+  font-weight:bold;
+  cursor:pointer;
+}
+button:hover{background:#45d3ff}
 
-/* CHAT */
 .chat{
   max-width:700px;
-  margin:auto;
-  background:#041427;
+  margin:30px auto;
+  border:1px solid #1fbfff;
   border-radius:16px;
-  border:1px solid var(--neon);
   display:flex;
   flex-direction:column;
   height:420px;
@@ -116,104 +61,134 @@ h1{color:var(--neon)}
   max-width:80%;
 }
 .user{background:#1f6fff;margin-left:auto}
-.ai{background:#083a55;border:1px solid var(--neon)}
+.ai{background:#083a55;border:1px solid #1fbfff}
+.typing{opacity:0.6;font-style:italic}
 
 .chat-input{
   display:flex;
+  padding:10px;
   gap:10px;
-  padding:12px;
 }
-.chat-input input{
-  flex:1;
-  padding:12px;
-  border-radius:12px;
-  border:none;
-}
-.chat-input button{
-  padding:12px 18px;
-  border:none;
-  border-radius:12px;
-  background:var(--neon);
-  font-weight:bold;
-  cursor:pointer;
-}
+.chat-input input{flex:1}
 
-footer{text-align:center;padding:30px;opacity:.7}
+h2{text-align:center;color:#1fbfff}
+p.link{text-align:center;cursor:pointer;color:#1fbfff}
 </style>
 </head>
 
 <body>
 
-<nav>
-  <div class="logo">⚡ HyperNova</div>
-  <div class="nav-links">
-    <a href="#home">Home</a>
-    <a href="#comics">Comics</a>
-    <a href="#films">Films</a>
-    <a href="#store">Store</a>
-    <a href="#messenger">Messenger</a>
-    <a href="#about">About</a>
+<!-- LOGIN -->
+<div id="login" class="center">
+  <div class="card">
+    <h2>Login</h2>
+    <input id="loginUser" placeholder="Username">
+    <button onclick="login()">Login</button>
+    <p class="link" onclick="showSignup()">Create account</p>
   </div>
-  <div class="whoosh"></div>
-</nav>
+</div>
 
-<section id="home">
-  <h1>Welcome to HyperNova</h1>
-  <p>A comic & film universe powered by AI.</p>
-</section>
-
-<section id="comics">
-  <h1>Comics</h1>
-  <div class="grid">
-    <div class="card">Issue #1 – Preview</div>
-    <div class="card">Issue #2 – Coming Soon</div>
+<!-- SIGNUP -->
+<div id="signup" class="center hidden">
+  <div class="card">
+    <h2>Sign Up</h2>
+    <input id="signupUser" placeholder="Username">
+    <button onclick="signup()">Sign Up</button>
+    <p class="link" onclick="showLogin()">Back to login</p>
   </div>
-</section>
+</div>
 
-<section id="films">
-  <h1>Films</h1>
-  <div class="grid">
-    <div class="card">HyperNova Origins</div>
-    <div class="card">Animated Shorts</div>
-  </div>
-</section>
-
-<section id="store">
-  <h1>Store</h1>
-  <div class="grid">
-    <div class="card">Comic – 10 QAR</div>
-    <div class="card">Comic – 50 HP</div>
-  </div>
-</section>
-
-<section id="messenger">
-  <h1>Messenger</h1>
+<!-- APP -->
+<div id="app" class="hidden">
+  <h2>AzureGPT ⚡</h2>
   <div class="chat">
-    <div class="chat-log" id="log">
-      <div class="msg ai">AzureGPT is online ⚡</div>
-    </div>
+    <div class="chat-log" id="log"></div>
     <div class="chat-input">
       <input id="msg" placeholder="Type message..." onkeydown="handleKey(event)">
       <button onclick="send()">Send</button>
     </div>
   </div>
-</section>
-
-<section id="about"></section>
-
-<footer>© HyperNova Universe</footer>
+</div>
 
 <script>
 const WORKER_URL = "https://azure-gptworker.omerkuzeyseyhan5.workers.dev";
+let currentUser = null;
+
+/* ---------- NAV ---------- */
+function showSignup(){
+  document.getElementById("login").classList.add("hidden");
+  document.getElementById("signup").classList.remove("hidden");
+}
+function showLogin(){
+  document.getElementById("signup").classList.add("hidden");
+  document.getElementById("login").classList.remove("hidden");
+}
+
+/* ---------- AUTH ---------- */
+function signup(){
+  const u = document.getElementById("signupUser").value.trim();
+  if(!u) return alert("Enter a username");
+
+  if(localStorage.getItem("user_"+u)){
+    alert("User already exists");
+    return;
+  }
+
+  localStorage.setItem("user_"+u, JSON.stringify([]));
+  document.getElementById("loginUser").value = u;
+  showLogin();
+}
+
+function login(){
+  const u = document.getElementById("loginUser").value.trim();
+  if(!localStorage.getItem("user_"+u)){
+    alert("User not found");
+    return;
+  }
+
+  currentUser = u;
+  document.getElementById("login").classList.add("hidden");
+  document.getElementById("app").classList.remove("hidden");
+  loadChat();
+}
+
+/* ---------- CHAT MEMORY ---------- */
+function loadChat(){
+  const log = document.getElementById("log");
+  log.innerHTML = "";
+  const history = JSON.parse(localStorage.getItem("user_"+currentUser));
+  history.forEach(m=>{
+    log.innerHTML += `<div class="msg ${m.role}">${m.text}</div>`;
+  });
+  log.scrollTop = log.scrollHeight;
+}
+
+function save(role,text){
+  const h = JSON.parse(localStorage.getItem("user_"+currentUser));
+  h.push({role,text});
+  localStorage.setItem("user_"+currentUser, JSON.stringify(h));
+}
+
+/* ---------- CHAT ---------- */
+function handleKey(e){
+  if(e.key==="Enter") send();
+}
 
 async function send(){
   const input = document.getElementById("msg");
-  const log = document.getElementById("log");
   const text = input.value.trim();
   if(!text) return;
 
-  log.innerHTML += `<div class="msg user">${text}</div>`;
   input.value = "";
+  const log = document.getElementById("log");
+
+  log.innerHTML += `<div class="msg user">${text}</div>`;
+  save("user",text);
+
+  const typing = document.createElement("div");
+  typing.className="msg ai typing";
+  typing.innerText="AzureGPT is thinking…";
+  log.appendChild(typing);
   log.scrollTop = log.scrollHeight;
 
   try{
@@ -224,10 +199,15 @@ async function send(){
     });
 
     const data = await res.json();
+    typing.remove();
+
     log.innerHTML += `<div class="msg ai">${data.reply}</div>`;
+    save("ai",data.reply);
     log.scrollTop = log.scrollHeight;
-  }catch(e){
-    log.innerHTML += `<div class="msg ai">⚠️ AzureGPT error</div>`;
+
+  }catch{
+    typing.remove();
+    log.innerHTML += `<div class="msg ai">⚠️ Connection error</div>`;
   }
 }
 </script>
