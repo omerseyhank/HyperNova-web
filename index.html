@@ -1,36 +1,257 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>HyperNova Comics</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8" />
+<title>HyperNova</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<style>
+:root{
+  --neon:#1fbfff;
+  --bg:#030814;
+  --panel:#071a33;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: radial-gradient(circle at top, #0b1d3a, var(--bg));
+  color:white;
+  overflow-x:hidden;
+}
+
+/* ===== NAV BAR ===== */
+nav{
+  position:sticky;
+  top:0;
+  z-index:999;
+  background:linear-gradient(90deg,#061b38,#0b2f5f);
+  display:flex;
+  align-items:center;
+  padding:14px 30px;
+  border-bottom:2px solid var(--neon);
+}
+
+.logo{
+  font-size:22px;
+  font-weight:800;
+  letter-spacing:1px;
+  color:var(--neon);
+}
+
+.nav-links{
+  display:flex;
+  gap:22px;
+  margin-left:auto;
+}
+
+.nav-links a{
+  color:white;
+  text-decoration:none;
+  font-weight:600;
+  position:relative;
+  padding:6px 2px;
+}
+
+.nav-links a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-4px;
+  width:0%;
+  height:2px;
+  background:var(--neon);
+  transition:0.3s;
+}
+
+.nav-links a:hover::after{
+  width:100%;
+}
+
+/* WHOOSH */
+.whoosh{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(120deg,transparent,rgba(31,191,255,0.2),transparent);
+  animation:whoosh 4s linear infinite;
+  pointer-events:none;
+}
+@keyframes whoosh{
+  from{transform:translateX(-100%)}
+  to{transform:translateX(100%)}
+}
+
+/* ===== SECTIONS ===== */
+section{
+  padding:60px 10%;
+}
+
+h1{
+  color:var(--neon);
+  margin-bottom:20px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+}
+
+.card{
+  background:var(--panel);
+  border:1px solid rgba(31,191,255,0.25);
+  border-radius:16px;
+  padding:20px;
+  transition:0.3s;
+}
+.card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 0 25px rgba(31,191,255,0.35);
+}
+
+/* ===== CHAT ===== */
+.chat{
+  max-width:700px;
+  margin:auto;
+  background:#041427;
+  border-radius:16px;
+  border:1px solid var(--neon);
+  display:flex;
+  flex-direction:column;
+  height:420px;
+}
+
+.chat-log{
+  flex:1;
+  padding:16px;
+  overflow-y:auto;
+}
+
+.msg{
+  margin-bottom:10px;
+  padding:10px 14px;
+  border-radius:14px;
+  max-width:80%;
+}
+.user{background:#1f6fff;margin-left:auto}
+.ai{background:#083a55;border:1px solid var(--neon)}
+
+.chat-input{
+  display:flex;
+  gap:10px;
+  padding:12px;
+}
+.chat-input input{
+  flex:1;
+  padding:12px;
+  border-radius:12px;
+  border:none;
+  outline:none;
+}
+.chat-input button{
+  padding:12px 18px;
+  border:none;
+  border-radius:12px;
+  background:var(--neon);
+  font-weight:bold;
+  cursor:pointer;
+}
+
+/* ===== FOOTER ===== */
+footer{
+  text-align:center;
+  padding:30px;
+  opacity:0.7;
+}
+</style>
 </head>
 
 <body>
 
-  <!-- NAVIGATION BAR -->
-  <nav class="navbar">
-    <h1 class="logo">HyperNova Comics</h1>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="comics.html">Comics</a></li>
-      <li><a href="characters.html">Characters</a></li>
-      <li><a href="updates.html">Updates</a></li>
-      <li><a href="hpstore.html">HP Store</a></li>
-      <li><a href="messenger.html">Need Help?, ask AzureGPT!</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="sponsors.html">Our Sponsors</a></li>
-    </ul>
-  </nav>
+<nav>
+  <div class="logo">⚡ HyperNova</div>
+  <div class="nav-links">
+    <a href="#home">Home</a>
+    <a href="#comics">Comics</a>
+    <a href="#films">Films</a>
+    <a href="#store">Store</a>
+    <a href="#ai">AzureGPT</a>
+    <a href="#messenger">Messenger</a>
+    <a href="#about">About</a>
+  </div>
+  <div class="whoosh"></div>
+</nav>
 
-  <!-- HERO SECTION -->
-  <header class="hero">
-    <h2>Welcome to the Blue HyperTech Universe</h2>
-    <p>Explore comics, stories, characters, and more.</p>
+<section id="home">
+  <h1>Welcome to HyperNova</h1>
+  <p>A social-media powered comic & film universe driven by AI.</p>
+</section>
 
-    <a class="button" href="amongus.html">Read: Among Us — Going Back Home</a>
-  </header>
+<section id="comics">
+  <h1>Comics</h1>
+  <div class="grid">
+    <div class="card">Issue #1 – Preview</div>
+    <div class="card">Issue #2 – Coming Soon</div>
+    <div class="card">Exclusive AI Story</div>
+  </div>
+</section>
+
+<section id="films">
+  <h1>Films</h1>
+  <div class="grid">
+    <div class="card">HyperNova Origins (Trailer)</div>
+    <div class="card">Animated Shorts</div>
+  </div>
+</section>
+
+<section id="store">
+  <h1>Store</h1>
+  <div class="grid">
+    <div class="card">Comic – 10 QAR</div>
+    <div class="card">Comic – 50 HP</div>
+    <div class="card">Merch – Coming Soon</div>
+  </div>
+</section>
+
+<section id="ai">
+  <h1>AzureGPT</h1>
+  <p>AI writer, lore builder & assistant.</p>
+</section>
+
+<section id="messenger">
+  <h1>Messenger</h1>
+  <div class="chat">
+    <div class="chat-log" id="log">
+      <div class="msg ai">AzureGPT is online ⚡</div>
+    </div>
+    <div class="chat-input">
+      <input id="msg" placeholder="Type message...">
+      <button onclick="send()">Send</button>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <!-- intentionally empty -->
+</section>
+
+<footer>
+  © HyperNova Universe
+</footer>
+
+<script>
+function send(){
+  const input=document.getElementById("msg");
+  const log=document.getElementById("log");
+  if(!input.value) return;
+
+  log.innerHTML+=`<div class="msg user">${input.value}</div>`;
+  log.innerHTML+=`<div class="msg ai">[AzureGPT reply here]</div>`;
+  input.value="";
+  log.scrollTop=log.scrollHeight;
+}
+</script>
 
 </body>
 </html>
-
