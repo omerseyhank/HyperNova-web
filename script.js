@@ -1,5 +1,5 @@
 // 🔵 AzureGPT API URL (your Worker URL)
-const API_URL = "https://withered-frost-9713.omerkuzeyseyhan5.workers.dev";
+const API_URL = "https://azure-gptworker.omerkuzeyseyhan5.workers.dev.omerkuzeyseyhan5.workers.dev";
 
 // =========================
 // MESSENGER SYSTEM
