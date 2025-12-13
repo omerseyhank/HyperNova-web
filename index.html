@@ -193,7 +193,7 @@ footer{text-align:center;padding:30px;opacity:.7}
       <div class="msg ai">AzureGPT is online ⚡</div>
     </div>
     <div class="chat-input">
-      <input id="msg" placeholder="Type message...">
+      <input id="msg" placeholder="Type message..." onkeydown="handleKey(event)">
       <button onclick="send()">Send</button>
     </div>
   </div>
