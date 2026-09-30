@@ -110,6 +110,16 @@
 <script>
   const WORKER_URL = "https://azure-gptworker.omerkuzeyseyhan5.workers.dev";
 
+  function appendMessage(chat,role,text) {
+    const message = document.createElement("div");
+    message.className = role === "user" ? "msg user" : "msg bot";
+    const label = document.createElement("b");
+    label.textContent = role === "user" ? "You:" : "AzureGPT:";
+    message.appendChild(label);
+    message.appendChild(document.createTextNode(" " + String(text)));
+    chat.appendChild(message);
+  }
+
   async function sendMessage() {
     const input = document.getElementById("messageInput");
     const chat = document.getElementById("chat");
@@ -117,7 +127,7 @@
 
     if (!text) return;
 
-    chat.innerHTML += `<div class="msg user"><b>You:</b> ${text}</div>`;
+    appendMessage(chat,"user",text);
     input.value = "";
     chat.scrollTop = chat.scrollHeight;
 
@@ -129,7 +139,7 @@
 
     const data = await res.json();
 
-    chat.innerHTML += `<div class="msg bot"><b>AzureGPT:</b> ${data.reply}</div>`;
+    appendMessage(chat,"bot",data.reply);
     chat.scrollTop = chat.scrollHeight;
   }
 </script>

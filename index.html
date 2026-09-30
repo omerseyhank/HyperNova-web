@@ -152,13 +152,21 @@ function login(){
   loadChat();
 }
 
+/* ---------- SAFE MESSAGE RENDERING ---------- */
+function appendMessage(log,role,text){
+  const message = document.createElement("div");
+  message.className = role === "user" ? "msg user" : "msg ai";
+  message.textContent = String(text);
+  log.appendChild(message);
+}
+
 /* ---------- CHAT MEMORY ---------- */
 function loadChat(){
   const log = document.getElementById("log");
-  log.innerHTML = "";
+  log.replaceChildren();
   const history = JSON.parse(localStorage.getItem("user_"+currentUser));
   history.forEach(m=>{
-    log.innerHTML += `<div class="msg ${m.role}">${m.text}</div>`;
+    appendMessage(log,m.role,m.text);
   });
   log.scrollTop = log.scrollHeight;
 }
@@ -182,7 +190,7 @@ async function send(){
   input.value = "";
   const log = document.getElementById("log");
 
-  log.innerHTML += `<div class="msg user">${text}</div>`;
+  appendMessage(log,"user",text);
   save("user",text);
 
   const typing = document.createElement("div");
@@ -201,13 +209,13 @@ async function send(){
     const data = await res.json();
     typing.remove();
 
-    log.innerHTML += `<div class="msg ai">${data.reply}</div>`;
+    appendMessage(log,"ai",data.reply);
     save("ai",data.reply);
     log.scrollTop = log.scrollHeight;
 
   }catch{
     typing.remove();
-    log.innerHTML += `<div class="msg ai">⚠️ Connection error</div>`;
+    appendMessage(log,"ai","⚠️ Connection error");
   }
 }
 </script>
