@@ -131,15 +131,26 @@
     input.value = "";
     chat.scrollTop = chat.scrollHeight;
 
-    const res = await fetch(WORKER_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: text })
-    });
+    let errorMessage = "⚠️ Network error. Check your connection and try again.";
+    try {
+      const res = await fetch(WORKER_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: text })
+      });
 
-    const data = await res.json();
+      if (!res.ok) {
+        errorMessage = `⚠️ Request failed (HTTP ${res.status}). Please try again.`;
+        throw new Error("HTTP error");
+      }
 
-    appendMessage(chat,"bot",data.reply);
+      errorMessage = "⚠️ The server returned invalid JSON. Please try again.";
+      const data = await res.json();
+
+      appendMessage(chat,"bot",data.reply);
+    } catch {
+      appendMessage(chat,"bot",errorMessage);
+    }
     chat.scrollTop = chat.scrollHeight;
   }
 </script>
