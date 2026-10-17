@@ -199,6 +199,7 @@ async function send(){
   log.appendChild(typing);
   log.scrollTop = log.scrollHeight;
 
+  let errorMessage = "⚠️ Network error. Check your connection and try again.";
   try{
     const res = await fetch(WORKER_URL,{
       method:"POST",
@@ -206,6 +207,12 @@ async function send(){
       body:JSON.stringify({message:text})
     });
 
+    if (!res.ok) {
+      errorMessage = `⚠️ Request failed (HTTP ${res.status}). Please try again.`;
+      throw new Error("HTTP error");
+    }
+
+    errorMessage = "⚠️ The server returned invalid JSON. Please try again.";
     const data = await res.json();
     typing.remove();
 
@@ -215,7 +222,8 @@ async function send(){
 
   }catch{
     typing.remove();
-    appendMessage(log,"ai","⚠️ Connection error");
+    appendMessage(log,"ai",errorMessage);
+    log.scrollTop = log.scrollHeight;
   }
 }
 </script>
